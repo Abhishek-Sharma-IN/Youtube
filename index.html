@@ -1,62 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>YouTube Video Player</title>
-     <link rel = "icon" href = 
-     "youtube1.jpeg" 
-             type = "image/x-icon">
-    <style>
-    
-        body {
-            background: #a875b6;
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        #video {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <label for="videoLink">Enter YouTube Video Link:</label>
-        <input type="text" id="videoLink" placeholder="https://www.youtube.com/watch?v=...">
-        <button onclick="playVideo(50)">Play 50 Times</button>
-    </div>
-
-    <div id="video"></div>
-
+    <title>My YouTube Shorts Website</title>
     <script>
-        function playVideo(times) {
-            var videoLink = document.getElementById('videoLink').value;
-            var videoContainer = document.getElementById('video');
-            videoContainer.innerHTML = '';
-
-            var videoId = extractVideoId(videoLink);
-
-            for (var i = 0; i < times; i++) {
-                var iframe = document.createElement('iframe');
-                iframe.setAttribute('width', '560');
-                iframe.setAttribute('height', '315');
-                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allowfullscreen', '');
-
-                videoContainer.appendChild(iframe);
-            }
-        }
-
-        function extractVideoId(url) {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-            var match = url.match(regExp);
-
-            if (match && match[2].length === 11) {
-                return match[2];
-            } else {
-                alert('Invalid YouTube video link.');
+        function addShorts() {
+            var shortIds = document.getElementById("shortIds").value.split(",");
+            var shortsList = document.getElementById("shortsList");
+            for (var i = 0; i < shortIds.length; i++) {
+                var li = document.createElement("li");
+                var iframe = document.createElement("iframe");
+                iframe.width = "560";
+                iframe.height = "315";
+                iframe.src = "https://www.youtube.com/embed/" + shortIds[i];
+                iframe.frameborder = "0";
+                iframe.allowFullscreen = true;
+                li.appendChild(iframe);
+                shortsList.appendChild(li);
             }
         }
     </script>
+</head>
+<body>
+    <h1>My YouTube Shorts Website</h1>
+    <p>Enter the IDs of the YouTube shorts that you want to add to the page, separated by commas:</p>
+    <input type="text" id="shortIds">
+    <button onclick="addShorts()">Add</button>
+    <br><br>
+    <ul id="shortsList"></ul>
 </body>
 </html>
